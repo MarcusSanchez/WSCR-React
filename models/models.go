@@ -22,5 +22,5 @@ type NewMessage struct {
 type Room struct {
 	Number  string
 	Count   int
-	Clients map[*Client]struct{}
+	Clients map[*Client]bool
 }

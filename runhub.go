@@ -22,14 +22,14 @@ func runHub() {
 				room = &models.Room{
 					Number:  client.RoomNumber,
 					Count:   1,
-					Clients: make(map[*models.Client]struct{}),
+					Clients: make(map[*models.Client]bool),
 				}
-				room.Clients[client] = struct{}{}
+				room.Clients[client] = true
 				globals.Rooms[client.RoomNumber] = room
 				roomsMu.Unlock()
 			} else {
 				roomsMu.Unlock()
-				room.Clients[client] = struct{}{}
+				room.Clients[client] = true
 				room.Count++
 			}
 			globals.Broadcast <- &models.NewMessage{

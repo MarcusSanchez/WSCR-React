@@ -11,7 +11,7 @@ import (
 
 func main() {
 	app := initFiber()
-	go initRunHub()
+	go initRunHubs()
 	router.StartRouting(app)
 
 	log.Fatal(app.Listen("10.0.0.94:3000"))
@@ -24,7 +24,7 @@ func initFiber() *fiber.App {
 	return app
 }
 
-func initRunHub() {
+func initRunHubs() {
 	for i := 0; i < 3; i++ {
 		go runHub()
 	}
