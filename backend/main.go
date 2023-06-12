@@ -14,7 +14,7 @@ func main() {
 	go initRunHubs()
 	router.StartRouting(app)
 
-	log.Fatal(app.Listen("10.0.0.94:3000"))
+	log.Fatal(app.Listen("10.0.0.94:8000"))
 }
 
 func initFiber() *fiber.App {
