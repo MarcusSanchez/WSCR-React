@@ -19,3 +19,11 @@
 
 # Go workspace file
 go.work
+
+
+# Node.js / JavaScript / React
+/frontend/node_modules/
+/frontend/package-lock.json
+/frontend/yarn.lock
+
+.idea
