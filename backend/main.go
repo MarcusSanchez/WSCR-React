@@ -19,7 +19,7 @@ func main() {
 
 func initFiber() *fiber.App {
 	app := fiber.New()
-	app.Static("/", "./public")
+	app.Static("/", "./frontend/public")
 	app.Use("/ws", isWebsocket.New())
 	return app
 }
