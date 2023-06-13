@@ -3,6 +3,7 @@ package main
 import (
 	"WSChatRooms/middleware/isWebsocket"
 	"WSChatRooms/router"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -21,6 +22,7 @@ func initFiber() *fiber.App {
 	app := fiber.New()
 	app.Static("/", "./frontend/public")
 	app.Use("/ws", isWebsocket.New())
+	app.Use(cors.New())
 	return app
 }
 

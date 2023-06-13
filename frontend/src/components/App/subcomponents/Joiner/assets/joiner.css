@@ -1,0 +1,57 @@
+#joiner {
+    margin-top: 50px;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 450px;
+    padding: 15px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 24px;
+    border: 1px solid black;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin .btn {
+    position: relative;
+    margin: 0 auto;
+}
+
+#generateRoom {
+    margin-bottom: 15px;
+}
+
+#wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#wrapper .btn-lg {
+    font-size: 25px;
+    border: 2px solid black;
+}
+
+#room {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#generateRoom {
+    margin-top: 16px;
+    font-size: 18px;
+}
+
+#header {
+    position: relative;
+}

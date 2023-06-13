@@ -72,7 +72,7 @@ document.getElementById("roomForm").onsubmit = function () {
     }
     document.getElementById("joiner").innerHTML = "";
     document.getElementById("header").textContent = "Room " + room + " as " + name;
-    document.getElementById("header-wrapper").classList.add("top-right-header");
+    document.getElementById("header-wrapper").classList.add("top-right-Nav");
     start(name, room);
     return false;
 };
