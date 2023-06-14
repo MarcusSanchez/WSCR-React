@@ -6,8 +6,8 @@ import App from "./components/App/App";
 ReactDOM.render(
     (
         <React.StrictMode>
-            <Nav/>
-            <App/>
+            <Nav />
+            <App />
         </React.StrictMode>
     ),
     document.getElementsByTagName("body")[0]

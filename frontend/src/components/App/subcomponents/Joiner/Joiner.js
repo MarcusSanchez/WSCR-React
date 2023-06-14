@@ -30,7 +30,7 @@ function Joiner(props) {
 
     const [roomNumber, setRoomNumber] = useState('');
     const [uName, setUName] = useState('');
-    const [joinButton, setJoinButton] = useState('...');
+    const [joinButton, setJoinButton] = useState('Join Room');
 
     function setJoinButtonHelper(roomNumber, uName) {
         if (roomNumber.length > 0 && uName.length > 0) {
@@ -53,7 +53,7 @@ function Joiner(props) {
             setUName(newName);
         } else if (event.target.id === 'room') {
             // replaces all non-digits with empty string, then limits to 4 characters
-            newRoom = event.target.value.replace(/\D/g, '').substring(0, 4);
+            newRoom = event.target.value.replace(/\D/g, "").substring(0, 4);
             setRoomNumber(newRoom);
         }
         setJoinButtonHelper(newRoom, newName);
@@ -61,14 +61,13 @@ function Joiner(props) {
 
     function generateRoom() {
         fetch("http://10.0.0.94:8000/generateRoom")
-            .then((response) => response.text())
-            .then((text) => {
+            .then(response => response.text())
+            .then(text => {
                 setRoomNumber(text);
                 setJoinButtonHelper(text, uName);
             })
-            .catch((error) => {
-                setRoomNumber(error);
-                setJoinButtonHelper("...", uName);
+            .catch(error => {
+                alert("Error generating room number. Please try again. Error: " + error);
             });
     }
 
@@ -106,9 +105,9 @@ function Joiner(props) {
         <div id="joiner">
             <form id="roomForm" className="form-signin" onSubmit={handleSubmit}>
                 <h1 className="mb-3" id="header">Join or Create a Room</h1>
-                <input onChange={handleFormChange} type="text" id="name" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Name" value={uName}/>
+                <input onChange={handleFormChange} value={uName} type="text" id="name" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Name" />
                 <div id="wrapper">
-                    <input onChange={handleFormChange} type="text" id="room" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Room" value={roomNumber}/>
+                    <input onChange={handleFormChange} value={roomNumber} type="text" id="room" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Room" />
                     <button className="btn btn-lg btn-outline-dark" type="button" id="generateRoom" onClick={generateRoom}>Generate New Room</button>
                 </div>
                 <input type="submit" className="btn btn-lg btn-dark form-control" id="joinRoom" value={joinButton}/>
