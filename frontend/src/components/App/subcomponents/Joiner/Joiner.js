@@ -2,30 +2,6 @@ import './assets/joiner.css';
 import {useState} from "react";
 import {validateName, validateRoom} from "./assets/helpers";
 
-let conn;
-let appendLog = function (item) {};
-
-function start(name, room) {
-    if (window["WebSocket"]) {
-        conn = new WebSocket("ws://" + document.location.host + `/ws/${name}/${room}`);
-        conn.onclose = function () {
-            let item = document.createElement("div");
-            item.innerHTML = "<b>Connection closed.</b>";
-            appendLog(item);
-        };
-        conn.onmessage = function (e) {
-            let message = e.data;
-            let item = document.createElement("div");
-            item.innerText = message;
-            appendLog(item);
-        };
-    } else {
-        let item = document.createElement("div");
-        item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
-        appendLog(item);
-    }
-}
-
 function Joiner(props) {
 
     const [roomNumber, setRoomNumber] = useState('');
@@ -95,7 +71,8 @@ function Joiner(props) {
             return false;
         }
 
-        start(name, room);
+        props.setName(name);
+        props.setRoom(room);
         props.setIsJoined(true)
         return true;
     }
@@ -108,9 +85,9 @@ function Joiner(props) {
                 <input onChange={handleFormChange} value={uName} type="text" id="name" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Name" />
                 <div id="wrapper">
                     <input onChange={handleFormChange} value={roomNumber} type="text" id="room" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Room" />
-                    <button className="btn btn-lg btn-outline-dark" type="button" id="generateRoom" onClick={generateRoom}>Generate New Room</button>
+                    <button onClick={generateRoom} className="btn btn-lg btn-outline-dark" type="button" id="generateRoom" >Generate New Room</button>
                 </div>
-                <input type="submit" className="btn btn-lg btn-dark form-control" id="joinRoom" value={joinButton}/>
+                <input value={joinButton} type="submit" className="btn btn-lg btn-dark form-control" id="joinRoom" />
             </form>
         </div>
     );

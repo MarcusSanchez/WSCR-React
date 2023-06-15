@@ -9,10 +9,6 @@ import (
 	"sync"
 )
 
-var (
-	roomsMu = sync.Mutex{}
-)
-
 func runHub() {
 	for {
 		select {
@@ -27,6 +23,8 @@ func runHub() {
 		}
 	}
 }
+
+var roomsMu = sync.Mutex{}
 
 func registerClient(client *models.Client) {
 	roomsMu.Lock()
@@ -55,25 +53,26 @@ func registerClient(client *models.Client) {
 
 func broadcastMessage(newMessage *models.NewMessage) {
 	// Send the message to all clients
+	createMessageWorker := func(client *models.Client) {
+		client.Mu.Lock()
+		defer client.Mu.Unlock()
+
+		var message string
+		if newMessage.IsFromClient {
+			message = newMessage.Client.Name + ": " + newMessage.Message
+		} else {
+			message = newMessage.Message
+		}
+		if err := client.Connection.WriteMessage(websocket.TextMessage, []byte(message)); err != nil {
+			log.Println("write error:", err)
+
+			client.Connection.WriteMessage(websocket.CloseMessage, []byte{})
+			client.Connection.Close()
+			globals.Unregister <- client
+		}
+	}
 	for client := range (globals.Rooms[newMessage.Client.RoomNumber]).Clients {
-		go func(client *models.Client) { // send to each client in parallel so, we don't block on a slow client
-			client.Mu.Lock()
-			defer client.Mu.Unlock()
-
-			var message string
-			if newMessage.IsFromClient {
-				message = newMessage.Client.Name + ": " + newMessage.Message
-			} else {
-				message = newMessage.Message
-			}
-			if err := client.Connection.WriteMessage(websocket.TextMessage, []byte(message)); err != nil {
-				log.Println("write error:", err)
-
-				client.Connection.WriteMessage(websocket.CloseMessage, []byte{})
-				client.Connection.Close()
-				globals.Unregister <- client
-			}
-		}(client)
+		go createMessageWorker(client)
 	}
 }
 
