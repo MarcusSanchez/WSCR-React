@@ -24,9 +24,17 @@ func runHub() {
 	}
 }
 
-var roomsMu = sync.Mutex{}
+var commonMu = &sync.Mutex{}
+var roomsMutexes = make(map[string]*sync.Mutex)
 
 func registerClient(client *models.Client) {
+	commonMu.Lock()
+	roomsMu, ok := roomsMutexes[client.RoomNumber]
+	if !ok {
+		roomsMu = &sync.Mutex{}
+		roomsMutexes[client.RoomNumber] = roomsMu
+	}
+	commonMu.Unlock()
 	roomsMu.Lock()
 	if room, ok := globals.Rooms[client.RoomNumber]; !ok {
 		room = &models.Room{
@@ -81,6 +89,7 @@ func unregisterClient(client *models.Client) {
 	room, _ := globals.Rooms[client.RoomNumber]
 	if room.Count == 1 {
 		delete(globals.Rooms, client.RoomNumber)
+		delete(roomsMutexes, client.RoomNumber)
 	} else {
 		room.Count--
 		globals.Broadcast <- &models.NewMessage{
