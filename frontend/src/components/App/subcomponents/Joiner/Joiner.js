@@ -1,4 +1,4 @@
-import './assets/joiner.css';
+import './assets/joiner.module.css';
 import {useState} from "react";
 import {validateName, validateRoom} from "./assets/helpers";
 

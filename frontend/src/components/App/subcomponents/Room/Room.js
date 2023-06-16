@@ -1,37 +1,34 @@
-import {useState} from "react";
-
-let conn;
-let appendLog = function (item) {
-};
-
-function start(name, room) {
-    if (window["WebSocket"]) {
-        conn = new WebSocket("ws://" + document.location.host + `/ws/${name}/${room}`);
-        conn.onclose = function () {
-            let item = document.createElement("div");
-            item.innerHTML = "<b>Connection closed.</b>";
-            appendLog(item);
-        };
-        conn.onmessage = function (e) {
-            let message = e.data;
-            let item = document.createElement("div");
-            item.innerText = message;
-            appendLog(item);
-        };
-    } else {
-        let item = document.createElement("div");
-        item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
-        appendLog(item);
-    }
-}
+import {useEffect, useState} from "react";
+import s from "./assets/Room.module.css";
 
 
 function Room(props) {
-    start(props.name, props.room)
     const [messages, setMessages] = useState([
         {type: "message", data: {name: "username", message: "this is a message"}},
         {type: "announcement", data: {message: "username has joined the room"}},
     ]);
+
+    function start(name, room) {
+        if (window["WebSocket"]) {
+            let conn = new WebSocket(`ws://10.0.0.94:8000/ws/${name}/${room}`);
+            conn.onmessage = function (e) {
+                let message = {type: "message", data: {name: props.name, message: e.data}};
+                setMessages(messages => [...messages, message]);
+            };
+            conn.onclose = function () {
+                let message = {type: "announcement", data: {message: "Connection closed"}};
+                setMessages(messages => [...messages, message]);
+            };
+        } else {
+            let message = {type: "announcement", data: {message: "Your browser does not support WebSockets."}};
+            setMessages(messages => [...messages, message]);
+        }
+    }
+
+    useEffect(() => {
+        start(props.name, props.room)
+    }, [])
+
     return (
         <div id="chatlogs">
             {messages.map((message, index) => {
