@@ -1,0 +1,47 @@
+.Margin15 {
+    margin: 15px;
+}
+
+.LeftContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.RightContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.RightMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #f6afaf;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 50%;
+    border: 1px black solid;
+}
+
+.LeftMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #b3e6ff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 50%;
+    border: 1px black solid;
+}
+
+.ToGrey {
+    color: #656565;
+}

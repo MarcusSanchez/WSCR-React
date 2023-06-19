@@ -1,5 +1,5 @@
-import wscrLogo from "./assets/wscr-logo.png"
-import s from "./assets/nav.module.css"
+import wscrLogo from "./wscr-logo.png"
+import s from "./nav.module.css"
 
 function Nav() {
     return (

@@ -1,6 +1,6 @@
-import './assets/joiner.css';
-import {useState} from "react";
-import {validateName, validateRoom} from "./assets/helpers";
+import './joiner.css';
+import {useRef, useState} from "react";
+import {validateName, validateRoom} from "./helpers";
 
 function Joiner(props) {
 
@@ -49,8 +49,8 @@ function Joiner(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        let name = document.getElementById("name").value;
-        let room = document.getElementById("room").value;
+        let name = uName;
+        let room = roomNumber;
         if (!name && !room) {
             alert("Please enter a name and room number.");
             return false;
