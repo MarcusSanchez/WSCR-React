@@ -3,6 +3,7 @@ package main
 import (
 	"WSChatRooms/globals"
 	"WSChatRooms/models"
+	"encoding/json"
 	"github.com/gofiber/websocket/v2"
 
 	"log"
@@ -51,9 +52,9 @@ func registerClient(client *models.Client) {
 		room.Count++
 	}
 	globals.Broadcast <- &models.NewMessage{
-		Client:       client,
-		Message:      client.Name + " has joined the room",
-		IsFromClient: false,
+		Client:         client,
+		Message:        client.Name + " has joined the room",
+		IsAnnouncement: true,
 	}
 	globals.Clients[client.Connection] = client
 	log.Println("connection registered:  ", client.Name, "in room", client.RoomNumber)
@@ -65,13 +66,26 @@ func broadcastMessage(newMessage *models.NewMessage) {
 		client.Mu.Lock()
 		defer client.Mu.Unlock()
 
-		var message string
-		if newMessage.IsFromClient {
-			message = newMessage.Client.Name + ": " + newMessage.Message
+		var jsonMessage []byte
+		if newMessage.IsAnnouncement {
+			announcement := models.OutGoingAnnouncement{
+				Type: "announcement",
+				Data: models.AnnouncementData{
+					Message: newMessage.Message,
+				},
+			}
+			jsonMessage, _ = json.Marshal(announcement)
 		} else {
-			message = newMessage.Message
+			message := models.OutgoingMessage{
+				Type: "message",
+				Data: models.MessageData{
+					Name:    newMessage.Client.Name,
+					Message: newMessage.Message,
+				},
+			}
+			jsonMessage, _ = json.Marshal(message)
 		}
-		if err := client.Connection.WriteMessage(websocket.TextMessage, []byte(message)); err != nil {
+		if err := client.Connection.WriteMessage(websocket.TextMessage, jsonMessage); err != nil {
 			log.Println("write error:", err)
 
 			client.Connection.WriteMessage(websocket.CloseMessage, []byte{})
@@ -80,7 +94,9 @@ func broadcastMessage(newMessage *models.NewMessage) {
 		}
 	}
 	for client := range (globals.Rooms[newMessage.Client.RoomNumber]).Clients {
-		go createMessageWorker(client)
+		if client != newMessage.Client || newMessage.IsAnnouncement {
+			go createMessageWorker(client)
+		}
 	}
 }
 
@@ -93,9 +109,9 @@ func unregisterClient(client *models.Client) {
 	} else {
 		room.Count--
 		globals.Broadcast <- &models.NewMessage{
-			Client:       client,
-			Message:      client.Name + " has left the room",
-			IsFromClient: false,
+			Client:         client,
+			Message:        client.Name + " has left the room",
+			IsAnnouncement: true,
 		}
 	}
 	delete(globals.Clients, client.Connection)

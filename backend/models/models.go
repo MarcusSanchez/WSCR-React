@@ -14,9 +14,9 @@ type Client struct {
 }
 
 type NewMessage struct {
-	Client       *Client
-	Message      string
-	IsFromClient bool
+	Client         *Client
+	Message        string
+	IsAnnouncement bool
 }
 
 type Room struct {

@@ -7,7 +7,7 @@ import { MessagesContext } from "../../Room";
 function Log() {
     const [messages, _] = useContext(MessagesContext)
     return (
-            <div className={`p-3 ${s.Container}`}>
+            <div className={`p-3 ${s.Container}`} id="message-log">
                 {messages.map((message, index) => {
                     if (message.type === "message") {
                         return <Message
@@ -21,7 +21,6 @@ function Log() {
                         return <Announcement
                             key={index}
                             message={message.data.message}
-                            type={message.data.type}
                         />;
                     }
                     return null;

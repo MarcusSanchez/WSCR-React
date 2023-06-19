@@ -1,8 +1,9 @@
 import Joiner from './Joiner/Joiner';
 import Room from './Room/Room';
 import Footer from './Footer/Footer';
-import { useState } from "react";
+import { createContext, useState } from "react";
 
+export const NameContext = createContext(null);
 
 function App() {
     const [name, setName] = useState('');
@@ -14,11 +15,15 @@ function App() {
                 <main>
                     <Joiner setIsJoined={setIsJoined} setName={setName} setRoom={setRoom}/>
                 </main>
-                <Footer />
+                <Footer/>
             </>
         );
     }
-    return <Room name={name} room={room}/>;
+    return (
+        <NameContext.Provider value={name}>
+            <Room name={name} room={room}/>
+        </NameContext.Provider>
+    );
 }
 
 export default App

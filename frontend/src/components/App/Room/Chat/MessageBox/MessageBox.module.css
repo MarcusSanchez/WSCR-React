@@ -1,0 +1,45 @@
+.ChatContainer {
+    background-color: #e0e0e0;
+    border-radius: 0 0 0 30px;
+    border: 2px black solid;
+    height: 125px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MessageBox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 953px;
+    margin-left: 10px;
+}
+
+.TextArea {
+    flex-grow: 1;
+    resize: none;
+    padding: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    transition: height 0.2s;
+    overflow-y: auto;
+    width: auto;
+    border-radius: 10px;
+    border: 1px solid #000;
+    height: 100px;
+}
+
+.Button {
+    margin-left: 20px;
+    margin-right: 16px;
+    padding: 10px 15px;
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: #f6afaf;
+    border: 1px solid #000;
+    color: #000;
+    cursor: pointer;
+}

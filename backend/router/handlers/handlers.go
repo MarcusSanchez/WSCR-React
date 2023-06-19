@@ -41,9 +41,9 @@ func EstablishClientWS(conn *websocket.Conn) {
 		if messageType == websocket.TextMessage {
 			// Broadcast the received message
 			globals.Broadcast <- &models.NewMessage{
-				Client:       client,
-				Message:      string(message),
-				IsFromClient: true,
+				Client:         client,
+				Message:        string(message),
+				IsAnnouncement: false,
 			}
 		} else {
 			log.Println("websocket message received of type", messageType, "which is not supported to", client.Name, "in room", client.RoomNumber)
