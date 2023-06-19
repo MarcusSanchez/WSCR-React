@@ -23,11 +23,11 @@ function Room(props) {
             };
             conn.onclose = function () {
                 let announcement = {type: "announcement", data: {message: "Connection closed"}};
-                setMessages(prevMessages => [...prevMessages,, announcement]);
+                setMessages(prevMessages => [...prevMessages, announcement]);
             };
         } else {
             let announcement = {type: "announcement", data: {message: "Your browser does not support WebSockets."}};
-            setMessages(prevMessages => [...prevMessages,  , announcement  ]);
+            setMessages(prevMessages => [...prevMessages, announcement  ]);
         }
     }
 
