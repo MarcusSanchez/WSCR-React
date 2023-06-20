@@ -5,11 +5,13 @@ import SidePanel from "./SidePanel/SidePanel.jsx";
 
 export const MessagesContext = createContext([]);
 export const ConnContext = createContext(null);
+export const NewMessageAlertContext = createContext(null);
 let conn;
 let connCreated = false;
 
 function Room(props) {
     const [messages, setMessages] = useState([]);
+    const [newMessageAlert, setNewMessageAlert] = useState(false);
 
     function start(name, room) {
         if (window["WebSocket"]) {
@@ -30,6 +32,8 @@ function Room(props) {
                 setTimeout(() => {
                     if (isAtBottom) {
                         log.scrollTo(0, log.scrollHeight);
+                    } else {
+                        setNewMessageAlert(true);
                     }
                 }, 0);
             };
@@ -54,10 +58,12 @@ function Room(props) {
     return (
         <MessagesContext.Provider value={[messages, setMessages]}>
             <ConnContext.Provider value={conn}>
+                <NewMessageAlertContext.Provider value={[newMessageAlert, setNewMessageAlert]}>
                     <div className={`row ${s.Container}`}>
                         <Chat/>
                         <SidePanel/>
                     </div>
+                </NewMessageAlertContext.Provider>
             </ConnContext.Provider>
         </MessagesContext.Provider>
     );

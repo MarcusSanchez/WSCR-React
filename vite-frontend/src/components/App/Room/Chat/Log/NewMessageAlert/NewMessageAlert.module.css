@@ -1,7 +1,17 @@
+.Div {
+    position: absolute;
+    margin-top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Div:hover {
+    cursor: pointer;
+}
+
 .Alert {
-    margin: 10px 0 10px 0;
     padding: 0 5px;
     border-radius: 5px;
-    background-color: #9a9a9a;
+    background-color: #a1d29d;
     border: 1px black solid;
 }
