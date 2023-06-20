@@ -1,5 +1,5 @@
-import Log from "./Log/Log";
-import MessageBox from "./MessageBox/MessageBox";
+import Log from "./Log/Log.jsx";
+import MessageBox from "./MessageBox/MessageBox.jsx";
 import s from "./chat.module.css";
 
 function Chat() {

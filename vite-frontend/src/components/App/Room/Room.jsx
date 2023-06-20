@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import s from "./Room.module.css";
-import Chat from "./Chat/Chat";
-import SidePanel from "./SidePanel/SidePanel";
+import Chat from "./Chat/Chat.jsx";
+import SidePanel from "./SidePanel/SidePanel.jsx";
 
 export const MessagesContext = createContext([]);
 export const ConnContext = createContext(null);

@@ -1,8 +1,8 @@
-import Message from "./Message/Message";
-import Announcement from "./Announcement/Announcement";
+import Message from "./Message/Message.jsx";
+import Announcement from "./Announcement/Announcement.jsx";
 import s from "./log.module.css";
 import { useContext } from "react";
-import { MessagesContext } from "../../Room";
+import { MessagesContext } from "../../Room.jsx";
 
 function Log() {
     const [messages, _] = useContext(MessagesContext)

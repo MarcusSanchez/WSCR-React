@@ -1,6 +1,6 @@
-import Joiner from './Joiner/Joiner';
-import Room from './Room/Room';
-import Footer from './Footer/Footer';
+import Joiner from './Joiner/Joiner.jsx';
+import Room from './Room/Room.jsx';
+import Footer from './Footer/Footer.jsx';
 import { createContext, useState } from "react";
 
 export const NameContext = createContext(null);

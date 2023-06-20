@@ -1,5 +1,5 @@
-import {ConnContext, MessagesContext} from "../../Room";
-import {NameContext} from "../../../App";
+import {ConnContext, MessagesContext} from "../../Room.jsx";
+import {NameContext} from "../../../App.jsx";
 import {useContext, useRef} from "react";
 import s from "./MessageBox.module.css";
 
