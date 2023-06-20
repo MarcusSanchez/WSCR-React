@@ -6,6 +6,7 @@ import SidePanel from "./SidePanel/SidePanel.jsx";
 export const MessagesContext = createContext([]);
 export const ConnContext = createContext(null);
 let conn;
+let connCreated = false;
 
 function Room(props) {
     const [messages, setMessages] = useState([]);
@@ -32,7 +33,10 @@ function Room(props) {
     }
 
     useEffect(() => {
-        start(props.name, props.room);
+        // TODO: remove strict mode and bool check.
+        if (!connCreated) {
+            start(props.name, props.room);
+        }
     }, [])
 
     return (

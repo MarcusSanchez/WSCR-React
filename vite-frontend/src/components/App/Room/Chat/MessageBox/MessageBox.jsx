@@ -4,7 +4,7 @@ import {useContext, useRef} from "react";
 import s from "./MessageBox.module.css";
 
 function MessageBox() {
-    const [messages, setMessages] = useContext(MessagesContext);
+    const [_, setMessages] = useContext(MessagesContext);
     const conn = useContext(ConnContext);
     const name = useContext(NameContext);
     const textAreaRef = useRef(null);

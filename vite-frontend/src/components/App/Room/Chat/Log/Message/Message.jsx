@@ -4,12 +4,12 @@ function Message(props) {
     return props.fromClient ?
         (
             <div key={props.key} className={`row ${s.RightContainer}`}>
-                <div className={`col-6 ${s.Margin15} ${s.RightMessage}`}>
+                <div className={`col-6 ${s.Margin15} ${s.RightMessage} text-body`}>
                     <div className={`d-flex justify-content-between w-100`}>
                         <b className={``}>{props.name}:</b>
                         <span className={`${s.ToGrey}`}>{props.time}</span>
                     </div>
-                    <span className={``}>{props.message}</span>
+                    <span className={s.WordFormatter}>{props.message}</span>
                 </div>
             </div>
         ) : (
