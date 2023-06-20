@@ -3,7 +3,7 @@ import s from './Message.module.css';
 function Message(props) {
     return props.fromClient ?
         (
-            <div key={props.key} className={`row ${s.RightContainer}`}>
+            <div className={`row ${s.RightContainer}`}>
                 <div className={`col-6 ${s.Margin15} ${s.RightMessage} text-body`}>
                     <div className={`d-flex justify-content-between w-100`}>
                         <b className={``}>{props.name}:</b>
@@ -13,7 +13,7 @@ function Message(props) {
                 </div>
             </div>
         ) : (
-            <div key={props.key} className={`row ${s.LeftContainer}`}>
+            <div className={`row ${s.LeftContainer}`}>
                 <div className={`col-6 ${s.Margin15} ${s.LeftMessage}`}>
                     <div className={`d-flex justify-content-between w-100`}>
                         <b className={``}>{props.name}:</b>
