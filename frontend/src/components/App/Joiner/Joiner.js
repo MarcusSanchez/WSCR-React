@@ -1,6 +1,6 @@
 import './joiner.css';
-import {useRef, useState} from "react";
-import {validateName, validateRoom} from "./helpers";
+import { useState } from "react";
+import { validateName, validateRoom } from "./helpers";
 
 function Joiner(props) {
 
