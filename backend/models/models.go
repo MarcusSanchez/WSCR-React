@@ -17,6 +17,7 @@ type NewMessage struct {
 	Client         *Client
 	Message        string
 	IsAnnouncement bool
+	Type           string
 }
 
 type Room struct {

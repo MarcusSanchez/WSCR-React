@@ -2,7 +2,7 @@ import Joiner from './Joiner/Joiner.jsx';
 import Room from './Room/Room.jsx';
 import {createContext, useState} from "react";
 
-export const NameContext = createContext(null);
+export const NameRoomContext = createContext(null);
 
 function App() {
     const [name, setName] = useState('');
@@ -12,9 +12,9 @@ function App() {
         return <Joiner setIsJoined={setIsJoined} setName={setName} setRoom={setRoom}/>;
     }
     return (
-        <NameContext.Provider value={name}>
+        <NameRoomContext.Provider value={[name, room]}>
             <Room name={name} room={room}/>
-        </NameContext.Provider>
+        </NameRoomContext.Provider>
     );
 }
 

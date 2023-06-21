@@ -55,6 +55,7 @@ func registerClient(client *models.Client) {
 		Client:         client,
 		Message:        client.Name + " has joined the room",
 		IsAnnouncement: true,
+		Type:           "join",
 	}
 	globals.Clients[client.Connection] = client
 	log.Println("connection registered:  ", client.Name, "in room", client.RoomNumber)
@@ -72,6 +73,8 @@ func broadcastMessage(newMessage *models.NewMessage) {
 				Type: "announcement",
 				Data: models.AnnouncementData{
 					Message: newMessage.Message,
+					Name:    newMessage.Client.Name,
+					Type:    newMessage.Type,
 				},
 			}
 			jsonMessage, _ = json.Marshal(announcement)
@@ -112,6 +115,7 @@ func unregisterClient(client *models.Client) {
 			Client:         client,
 			Message:        client.Name + " has left the room",
 			IsAnnouncement: true,
+			Type:           "leave",
 		}
 	}
 	delete(globals.Clients, client.Connection)

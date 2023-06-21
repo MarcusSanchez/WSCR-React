@@ -1,12 +1,12 @@
 import {ConnContext, MessagesContext} from "../../Room.jsx";
-import {NameContext} from "../../../App.jsx";
+import {NameRoomContext} from "../../../App.jsx";
 import {useContext, useRef} from "react";
 import s from "./MessageBox.module.css";
 
 function MessageBox() {
     const [_, setMessages] = useContext(MessagesContext);
     const conn = useContext(ConnContext);
-    const name = useContext(NameContext);
+    const [name, __] = useContext(NameRoomContext);
     const textAreaRef = useRef(null);
 
     function sendMessage() {

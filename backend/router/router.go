@@ -10,4 +10,5 @@ import (
 func StartRouting(app *fiber.App) {
 	app.Get("/ws/:name/:room", websocket.New(handlers.EstablishClientWS))
 	app.Get("/generateRoom", handlers.GenerateEmptyRoom)
+	app.Get("/info/:room", handlers.GetRoomInfo)
 }
