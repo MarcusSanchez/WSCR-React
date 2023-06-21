@@ -12,7 +12,6 @@ function Log() {
     function handleScroll() {
         let isAtBottom = log.scrollTop >= log.scrollHeight - log.clientHeight - 10;
         if (newMessageAlert && isAtBottom) {
-            console.log("hit bottom");
             setNewMessageAlert(false);
         }
     }

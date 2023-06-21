@@ -1,13 +1,15 @@
 #joiner {
-    margin-top: 120px;
+    margin-top: 100px;
 }
 
 .form-signin {
-    width: 100%;
-    max-width: 450px;
-    padding: 15px;
-    margin: 0 auto;
+    width: 450px;
+    padding: 25px;
+    margin: auto;
     text-align: center;
+    border: solid black 2px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
 }
 
 .form-signin .form-control {
@@ -16,7 +18,7 @@
     height: auto;
     padding: 10px;
     font-size: 24px;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
 .form-signin .form-control:focus {
@@ -26,10 +28,6 @@
 .form-signin .btn {
     position: relative;
     margin: 0 auto;
-}
-
-#generateRoom {
-    margin-bottom: 15px;
 }
 
 #wrapper {
@@ -48,10 +46,32 @@
 }
 
 #generateRoom {
-    margin-top: 16px;
+    margin: 16px 0;
     font-size: 18px;
+    color: black;
 }
 
 #header {
     position: relative;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: #b3e6ff; /* #f6afaf */
+    padding: 20px;
 }
+
+.top-btn {
+    background-color: #f6afaf;
+}
+
+.top-btn:hover, .top-btn:focus {
+    background-color: #9a9a9a;
+}
+
+.btm-btn {
+    background-color: #b3e6ff;
+}
+
+.btm-btn:hover, .btm-btn:focus {
+    background-color: #9a9a9a;
+}
+

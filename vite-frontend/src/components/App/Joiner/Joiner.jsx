@@ -29,7 +29,7 @@ function Joiner(props) {
             setUName(newName);
         } else if (event.target.id === 'room') {
             // replaces all non-digits with empty string, then limits to 4 characters
-            newRoom = event.target.value.replace(/\D/g, "").substring(0, 4);
+            newRoom = event.target.value.replace(/\D/g, "").substring(0, 4).toLowerCase();
             setRoomNumber(newRoom);
         }
         setJoinButtonHelper(newRoom, newName);
@@ -85,9 +85,9 @@ function Joiner(props) {
                 <input onChange={handleFormChange} value={uName} type="text" id="name" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Name" />
                 <div id="wrapper">
                     <input onChange={handleFormChange} value={roomNumber} type="text" id="room" className="form-control bottom" size="64" autoComplete="off" placeholder="Room" />
-                    <button onClick={generateRoom} className="btn btn-lg btn-outline-dark" type="button" id="generateRoom" >Generate New Room</button>
+                    <button onClick={generateRoom} className="btn btn-lg btn-outline top-btn" type="button" id="generateRoom" >Generate New Room</button>
                 </div>
-                <input value={joinButton} type="submit" className="btn btn-lg btn-dark form-control" id="joinRoom" />
+                <input value={joinButton} type="submit" className="btn btn-lg btn-outline btm-btn form-control" id="joinRoom" />
             </form>
         </div>
     );
