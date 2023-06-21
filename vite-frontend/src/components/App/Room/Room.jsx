@@ -7,7 +7,6 @@ export const MessagesContext = createContext([]);
 export const ConnContext = createContext(null);
 export const NewMessageAlertContext = createContext(null);
 let conn;
-let connCreated = false;
 
 function Room(props) {
     const [messages, setMessages] = useState([]);
@@ -48,11 +47,7 @@ function Room(props) {
     }
 
     useEffect(() => {
-        // TODO: remove strict mode and bool check.
-        if (!connCreated) {
-            start(props.name, props.room);
-            connCreated = true;
-        }
+        start(props.name, props.room);
     }, [])
 
     return (
