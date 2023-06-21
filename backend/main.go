@@ -4,6 +4,7 @@ import (
 	"WSChatRooms/middleware/isWebsocket"
 	"WSChatRooms/router"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	recover2 "github.com/gofiber/fiber/v2/middleware/recover"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -12,7 +13,7 @@ import (
 
 func main() {
 	app := initFiber()
-	go initRunHubs()
+	initRunHubs()
 	router.StartRouting(app)
 
 	log.Fatal(app.Listen("10.0.0.94:8000"))
@@ -23,6 +24,7 @@ func initFiber() *fiber.App {
 	app.Static("/", "./frontend/public")
 	app.Use("/ws", isWebsocket.New())
 	app.Use(cors.New())
+	app.Use(recover2.New())
 	return app
 }
 
@@ -30,5 +32,4 @@ func initRunHubs() {
 	for i := 0; i < 3; i++ {
 		go runHub()
 	}
-	select {}
 }
