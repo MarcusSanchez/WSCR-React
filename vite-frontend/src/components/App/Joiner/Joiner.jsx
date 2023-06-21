@@ -84,7 +84,7 @@ function Joiner(props) {
                 <h1 className="mb-3" id="header">Join or Create a Room</h1>
                 <input onChange={handleFormChange} value={uName} type="text" id="name" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Name" />
                 <div id="wrapper">
-                    <input onChange={handleFormChange} value={roomNumber} type="text" id="room" className="form-control bottom" size="64" autoFocus autoComplete="off" placeholder="Room" />
+                    <input onChange={handleFormChange} value={roomNumber} type="text" id="room" className="form-control bottom" size="64" autoComplete="off" placeholder="Room" />
                     <button onClick={generateRoom} className="btn btn-lg btn-outline-dark" type="button" id="generateRoom" >Generate New Room</button>
                 </div>
                 <input value={joinButton} type="submit" className="btn btn-lg btn-dark form-control" id="joinRoom" />
