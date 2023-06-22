@@ -10,7 +10,7 @@ function SidePanel() {
     let [participants, setParticipants] = useState([]);
 
     useEffect(() => {
-        fetch(`http://10.0.0.94:8000/info/${room}`)
+        fetch(window.location.origin + `/info/${room}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error === "true") {

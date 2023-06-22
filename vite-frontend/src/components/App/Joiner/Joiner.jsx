@@ -36,7 +36,7 @@ function Joiner(props) {
     }
 
     function generateRoom() {
-        fetch("http://10.0.0.94:8000/generateRoom")
+        fetch(window.location.origin + "/generateRoom")
             .then(response => response.text())
             .then(text => {
                 setRoomNumber(text);
