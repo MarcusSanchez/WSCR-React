@@ -14,7 +14,7 @@ function Room(props) {
 
     function start(name, room) {
         if (window["WebSocket"]) {
-            conn = new WebSocket(`ws://${window.location.host}/ws/${name}/${room}`);
+            conn = new WebSocket(`wss://${window.location.host}/ws/${name}/${room}`);
             conn.onmessage = function (e) {
                 let newMessage = JSON.parse(e.data);
                 if (newMessage.type === "message") {
