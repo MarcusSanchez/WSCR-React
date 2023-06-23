@@ -41,6 +41,8 @@ function Joiner(props) {
             .then(text => {
                 setRoomNumber(text);
                 setJoinButtonHelper(text, uName);
+                let button = document.getElementById("generateRoom");
+                button.disabled = true;
             })
             .catch(error => {
                 alert("Error generating room number. Please try again. Error: " + error);

@@ -75,3 +75,9 @@
     background-color: #9a9a9a;
 }
 
+#generateRoom[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #9a9a9a;
+}
+
