@@ -4,6 +4,7 @@ import {useContext, useRef} from "react";
 import s from "./MessageBox.module.css";
 
 let messageCount = 0;
+let log = document.getElementById("message-log");
 
 function MessageBox() {
     const [_, setMessages] = useContext(MessagesContext);
@@ -13,7 +14,7 @@ function MessageBox() {
 
     function sendMessage() {
         if ((!conn || textAreaRef.current.value.replace(/^]s+/, '').length === 0) || messageCount >= 3) {
-            if (messageCount > 3) {
+            if (messageCount >= 3) {
                 let announcement = {
                     type: "announcement",
                     data: {
@@ -24,7 +25,7 @@ function MessageBox() {
                 }
                 setMessages(prevMessages => [...prevMessages, announcement]);
                 setTimeout(() => {
-                    document.getElementById("message-log").scrollTo(0, document.getElementById("message-log").scrollHeight);
+                    log.scrollTo(0, log.scrollHeight);
                 }, 0);
             }
             return false;
@@ -48,7 +49,7 @@ function MessageBox() {
         setMessages(prevMessages => [...prevMessages, message]);
         textAreaRef.current.value = "";
         setTimeout(() => {
-            document.getElementById("message-log").scrollTo(0, document.getElementById("message-log").scrollHeight);
+            log.scrollTo(0, log.scrollHeight);
         }, 0);
         return true;
     }
