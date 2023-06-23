@@ -30,7 +30,7 @@ function SidePanel() {
             if (lastMessage.data.type === "join") {
                 setRoomCount(prevRoomCount => prevRoomCount + 1);
                 setParticipants(prevParticipants => [...prevParticipants, lastMessage.data.name]);
-            } else {
+            } else if (lastMessage.data.type === "leave") {
                 setRoomCount(prevRoomCount => prevRoomCount - 1);
                 setParticipants(prevParticipants => prevParticipants.filter(participant => participant !== lastMessage.data.name));
             }
