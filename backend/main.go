@@ -3,6 +3,7 @@ package main
 import (
 	"WSChatRooms/middleware/isWebsocket"
 	"WSChatRooms/router"
+	"os"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	recovery "github.com/gofiber/fiber/v2/middleware/recover"
@@ -10,18 +11,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"log"
-	"os"
 )
 
 func main() {
 	app := initFiber()
 	initRunHubs()
 	router.StartRouting(app)
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
-	}
 
+	port := initPort()
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 }
 
@@ -38,4 +35,12 @@ func initRunHubs() {
 	for i := 0; i < 3; i++ {
 		go runHub()
 	}
+}
+
+func initPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+	return port
 }
