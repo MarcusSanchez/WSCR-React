@@ -4,6 +4,7 @@ import (
 	"WSChatRooms/globals"
 	"WSChatRooms/models"
 	"encoding/json"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 
 	"log"
@@ -69,21 +70,21 @@ func broadcastMessage(newMessage *models.NewMessage) {
 
 		var jsonMessage []byte
 		if newMessage.IsAnnouncement {
-			announcement := models.OutGoingAnnouncement{
-				Type: "announcement",
-				Data: models.AnnouncementData{
-					Message: newMessage.Message,
-					Name:    newMessage.Client.Name,
-					Type:    newMessage.Type,
+			announcement := fiber.Map{
+				"type": "announcement",
+				"data": fiber.Map{
+					"message": newMessage.Message,
+					"name":    newMessage.Client.Name,
+					"type":    newMessage.Type,
 				},
 			}
-			jsonMessage, _ = json.Marshal(announcement)
+		jsonMessage, _ = json.Marshal(announcement)
 		} else {
-			message := models.OutgoingMessage{
-				Type: "message",
-				Data: models.MessageData{
-					Name:    newMessage.Client.Name,
-					Message: newMessage.Message,
+			message := fiber.Map{
+				"type": "message",
+				"data": fiber.Map{
+					"name":    newMessage.Client.Name,
+					"message": newMessage.Message,
 				},
 			}
 			jsonMessage, _ = json.Marshal(message)

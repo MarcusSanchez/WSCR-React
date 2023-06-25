@@ -1,13 +1,16 @@
 import s from './SidePanel.module.css';
 import {useContext, useEffect, useState} from "react";
-import { NameRoomContext } from "../../App.jsx";
-import { MessagesContext } from "../Room.jsx";
+import {NameRoomContext} from "../../App.jsx";
+import {MessagesContext} from "../Room.jsx";
 
 function SidePanel() {
     const [_, room] = useContext(NameRoomContext);
     const [messages, __] = useContext(MessagesContext);
     let [roomCount, setRoomCount] = useState(0);
     let [participants, setParticipants] = useState([]);
+
+    let [clipboardClasses, setClipboardClasses] = useState(`fa-regular fa-clipboard ${s.Clipboard}`);
+    let [copiedClasses, setCopiedClasses] = useState(`ps-2 visually-hidden`);
 
     useEffect(() => {
         fetch(window.location.origin + `/info/${room}`)
@@ -37,6 +40,18 @@ function SidePanel() {
         }
     }, [messages])
 
+    function handleCopyToClipboard() {
+        navigator.clipboard.writeText(window.location.origin + "?room=" + room)
+            .then(() => {
+                setClipboardClasses(`fa-solid fa-check ${s.Clipboard}`);
+                setCopiedClasses(`ps-2`);
+                setTimeout(() => {
+                    setClipboardClasses(`fa-regular fa-clipboard ${s.Clipboard}`);
+                    setCopiedClasses(`ps-2 visually-hidden`);
+                }, 1000);
+            })
+    }
+
     return (
         <div className={`col-3 ${s.Container}`}>
             <h3 className={s.H3}>Room Information</h3>
@@ -51,6 +66,12 @@ function SidePanel() {
                     )
                 })}
             </div>
+            <p className={`mt-3 mb-1`}><b>Invite Link:</b></p>
+            <p onClick={handleCopyToClipboard} className={`mb-0 ${s.Link}`}>
+                {window.location.host + "?room=" + room}
+                <i className={clipboardClasses}></i>
+            </p>
+            <b className={copiedClasses}>Copied!</b>
         </div>
     )
         ;

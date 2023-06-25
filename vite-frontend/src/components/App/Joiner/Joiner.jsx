@@ -1,12 +1,23 @@
 import './joiner.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validateName, validateRoom } from "./helpers";
+
+let queryParams = new URLSearchParams(window.location.search);
+let queriedRoom = queryParams.get('room');
 
 function Joiner(props) {
 
     const [roomNumber, setRoomNumber] = useState('');
     const [uName, setUName] = useState('');
     const [joinButton, setJoinButton] = useState('Join Room');
+
+    useEffect(() => {
+        if (queriedRoom !== null && validateRoom(queriedRoom)) {
+            setRoomNumber(queriedRoom);
+            setJoinButtonHelper(queriedRoom, uName);
+            document.getElementById("generateRoom").disabled = true;
+        }
+    }, [])
 
     function setJoinButtonHelper(roomNumber, uName) {
         if (roomNumber.length > 0 && uName.length > 0) {

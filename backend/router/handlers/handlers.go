@@ -74,7 +74,6 @@ func GetRoomInfo(c *fiber.Ctx) error {
 	for client, _ := range room.Clients {
 		clients = append(clients, client.Name)
 	}
-	c.Set("Content-Type", "application/json")
 	return c.JSON(fiber.Map{
 		"error":        "false",
 		"roomCount":    room.Count,

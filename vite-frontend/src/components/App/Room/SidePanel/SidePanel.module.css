@@ -28,3 +28,18 @@
 .TopParticipant {
   padding-top: 10px
 }
+
+.Link {
+    background-color: #b4b4b4;
+    border: 2px black solid;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    word-wrap: normal;
+}
+
+.Clipboard {
+    display: inline-block;
+    padding-left: 5px;
+    cursor: pointer;
+}
