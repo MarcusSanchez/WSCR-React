@@ -4,8 +4,8 @@ import LogoBox from "./LogoBox/LogoBox.jsx";
 function Nav() {
 
     function handleClick() {
-        // refresh the page:
-        window.location.reload();
+        // refresh the page & reset query params:
+        window.location.href = window.location.origin + window.location.pathname;
     }
 
     return (

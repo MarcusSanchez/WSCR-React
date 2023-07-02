@@ -1,11 +1,11 @@
 import s from './SidePanel.module.css';
-import {useContext, useEffect, useState} from "react";
-import {NameRoomContext} from "../../App.jsx";
-import {MessagesContext} from "../Room.jsx";
+import { useContext, useEffect, useState } from "react";
+import { NameRoomContext } from "../../App.jsx";
+import { MessagesContext } from "../Room.jsx";
 
 function SidePanel() {
-    const [_, room] = useContext(NameRoomContext);
-    const [messages, __] = useContext(MessagesContext);
+    const [, room] = useContext(NameRoomContext);
+    const [messages, ] = useContext(MessagesContext);
     let [roomCount, setRoomCount] = useState(0);
     let [participants, setParticipants] = useState([]);
 
@@ -16,9 +16,6 @@ function SidePanel() {
         fetch(window.location.origin + `/info/${room}`)
             .then(response => response.json())
             .then(data => {
-                if (data.error === "true") {
-                    return;
-                }
                 setRoomCount(data.roomCount);
                 setParticipants(data.participants);
             })
@@ -73,8 +70,7 @@ function SidePanel() {
             </p>
             <b className={copiedClasses}>Copied!</b>
         </div>
-    )
-        ;
+    );
 }
 
 export default SidePanel;
