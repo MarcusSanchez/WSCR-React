@@ -69,9 +69,17 @@ func GenerateEmptyRoom(c *fiber.Ctx) error {
 
 func GetRoomInfo(c *fiber.Ctx) error {
 	roomNumber := c.Params("room")
-	room, _ := globals.Rooms[roomNumber]
+	room, ok := globals.Rooms[roomNumber]
+	if !ok {
+		return c.JSON(fiber.Map{
+			"error":        "true",
+			"errorMessage": "Room does not exist",
+			"roomCount":    0,
+			"participants": []string{},
+		})
+	}
 	var clients []string
-	for client, _ := range room.Clients {
+	for client := range room.Clients {
 		clients = append(clients, client.Name)
 	}
 	return c.JSON(fiber.Map{
