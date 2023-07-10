@@ -3,6 +3,9 @@ import {useContext, useEffect, useState} from "react";
 import {NameRoomContext} from "../../App.jsx";
 import {MessagesContext} from "../Room.jsx";
 
+let href = window.location.href;
+let queryIndex = href.indexOf('?') !== -1 ? href.indexOf('?') : href.length;
+
 function SidePanel() {
   const [, room] = useContext(NameRoomContext);
   const [messages,] = useContext(MessagesContext);
@@ -12,6 +15,7 @@ function SidePanel() {
   let [clipboardClasses, setClipboardClasses] = useState(`fa-regular fa-clipboard ${s.Clipboard}`);
   let [copiedClasses, setCopiedClasses] = useState(`ps-2 visually-hidden`);
 
+  let inviteLink = href.substring(0, queryIndex) + `?room=${room}`;
 
   function fetchRoomInfo() {
     fetch(`http://localhost:3000/info/${room}`)
@@ -42,7 +46,7 @@ function SidePanel() {
   }, [messages])
 
   function handleCopyToClipboard() {
-    navigator.clipboard.writeText(window.location.origin + "?room=" + room)
+    navigator.clipboard.writeText(inviteLink)
       .then(() => {
         setClipboardClasses(`fa-solid fa-check ${s.Clipboard}`);
         setCopiedClasses(`ps-2`);
@@ -69,7 +73,7 @@ function SidePanel() {
       </div>
       <p className={`mt-3 mb-1`}><b>Invite Link:</b></p>
       <p onClick={handleCopyToClipboard} className={`mb-0 ${s.Link}`}>
-        {window.location.host + "?room=" + room}
+        {inviteLink}
         <i className={clipboardClasses}></i>
       </p>
       <b className={copiedClasses}>Copied!</b>

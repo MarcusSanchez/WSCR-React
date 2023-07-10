@@ -4,8 +4,9 @@ import LogoBox from "./LogoBox/LogoBox.jsx";
 function Nav() {
 
     function handleClick() {
-        // refresh the page & reset query params:
-        window.location.href = window.location.origin + window.location.pathname;
+      let href = window.location.href;
+      let queryIndex = href.indexOf('?') !== -1 ? href.indexOf('?') : href.length;
+      window.location.href = href.substring(0, queryIndex);
     }
 
     return (
